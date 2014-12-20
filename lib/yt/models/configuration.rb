@@ -38,10 +38,6 @@ module Yt
       # @see https://console.developers.google.com Google Developers Console
       attr_accessor :client_secret
 
-      # @return [String] the API key for server/browser YouTube applications.
-      # @see https://console.developers.google.com Google Developers Console
-      attr_accessor :api_key
-
       # @return [String] the level of output to print for debugging purposes.
       attr_accessor :log_level
 
@@ -64,6 +60,18 @@ module Yt
       #   Useful when debugging (e.g., to print the curl of failing requests).
       def debugging?
         log_level.to_s.in? %w(devel debug)
+      end
+
+      def api_key=(val)
+        @api_key = val
+      end
+
+      def api_key
+        if @api_key.is_a?(Proc)
+          @api_key.call
+        else
+          @api_key
+        end
       end
     end
   end

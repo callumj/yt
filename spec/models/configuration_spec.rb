@@ -40,5 +40,12 @@ describe Yt::Configuration do
       before { ENV['YT_API_KEY'] = api_key}
       it {expect(config.api_key).to eq api_key }
     end
+
+    it "should accept being a proc" do
+      config.api_key = lambda do
+        "KEY"
+      end
+      expect(config.api_key).to eq "KEY"
+    end
   end
 end
